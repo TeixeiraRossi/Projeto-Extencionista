@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sinop - Guia de Saúde</title>
+  <meta name="description" content="Guia completo de saúde de Sinop-MT. Encontre UBS e UPA próximas de você.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2d7a5e',
+            'primary-foreground': '#f9fafb',
+            secondary: '#e9edf1',
+            'secondary-foreground': '#1f2937',
+            muted: '#e9edf1',
+            'muted-foreground': '#6b7280',
+            accent: '#4ade80',
+            'accent-foreground': '#1f2937',
+            border: '#e5e7eb',
+            background: '#ffffff',
+            foreground: '#1f2937',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-foreground">
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-map-marked-alt text-2xl text-primary"></i>
+          <span class="text-xl font-bold">Sinop Saúde</span>
+        </div>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex md:items-center md:gap-6">
+          <a href="index.html" class="text-sm font-medium text-primary">Início</a>
+          <a href="sobre.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Sobre</a>
+          <a href="mapa.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Mapa</a>
+          <a href="contato.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Contato</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden pb-4">
+        <div class="flex flex-col gap-3">
+          <a href="index.html" class="text-sm font-medium text-primary">Início</a>
+          <a href="sobre.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Sobre</a>
+          <a href="mapa.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Mapa</a>
+          <a href="contato.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Contato</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-32">
+      <div class="mx-auto max-w-3xl text-center">
+        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">
+          Saúde de Sinop-MT
+        </h1>
+        <p class="mt-6 text-lg text-muted-foreground">
+          Encontre rapidamente as Unidades Básicas de Saúde (UBS) e Unidades de Pronto Atendimento (UPA) mais próximas de você.
+        </p>
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a href="mapa.html" class="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+            Ver Mapa
+            <i class="fas fa-map-marker-alt ml-2"></i>
+          </a>
+          <a href="sobre.html" class="inline-flex items-center justify-center rounded-lg border border-border bg-background px-6 py-3 text-sm font-medium hover:bg-accent/10 transition-colors">
+            Saiba Mais
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="border-t border-border bg-muted/50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
+          Por que usar nosso guia?
+        </h2>
+        <p class="mt-4 text-muted-foreground">
+          Acesso rápido e fácil às informações de saúde de Sinop
+        </p>
+      </div>
+
+      <div class="mt-16 grid gap-8 md:grid-cols-2">
+        <div class="rounded-lg border border-border bg-background p-6">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
+            <i class="fas fa-map-marked-alt text-xl text-primary-foreground"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Mapa Interativo</h3>
+          <p class="text-sm text-muted-foreground mb-4">
+            Explore o mapa com todas as unidades de saúde e pontos importantes
+          </p>
+          <a href="mapa.html" class="inline-flex items-center text-sm font-medium text-primary hover:underline">
+            Explorar
+            <i class="fas fa-arrow-right ml-1"></i>
+          </a>
+        </div>
+
+        <div class="rounded-lg border border-border bg-background p-6">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
+            <i class="fas fa-calendar text-xl text-accent-foreground"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Horários</h3>
+          <p class="text-sm text-muted-foreground mb-4">
+            Consulte horários de funcionamento das unidades de saúde
+          </p>
+          <a href="sobre.html" class="inline-flex items-center text-sm font-medium text-primary hover:underline">
+            Ver horários
+            <i class="fas fa-arrow-right ml-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-lg border border-primary bg-primary p-8 text-center">
+        <h2 class="text-3xl font-bold text-primary-foreground mb-4">
+          Pronto para explorar?
+        </h2>
+        <p class="text-primary-foreground/80 mb-6">
+          Use nosso mapa interativo para descobrir as unidades de saúde
+        </p>
+        <a href="mapa.html" class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-medium text-primary hover:bg-white/90 transition-colors">
+          Abrir Mapa Interativo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border bg-muted/50">
+    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div class="grid gap-8 md:grid-cols-3">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <i class="fas fa-map-marked-alt text-2xl text-primary"></i>
+            <span class="text-lg font-bold">Sinop Saúde</span>
+          </div>
+          <p class="text-sm text-muted-foreground">
+            Guia completo de saúde de Sinop-MT
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-semibold mb-4">Navegação</h3>
+          <ul class="space-y-2 text-sm text-muted-foreground">
+            <li><a href="index.html" class="hover:text-foreground transition-colors">Início</a></li>
+            <li><a href="sobre.html" class="hover:text-foreground transition-colors">Sobre</a></li>
+            <li><a href="mapa.html" class="hover:text-foreground transition-colors">Mapa</a></li>
+            <li><a href="contato.html" class="hover:text-foreground transition-colors">Contato</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-semibold mb-4">Serviços</h3>
+          <ul class="space-y-2 text-sm text-muted-foreground">
+            <li><a href="mapa.html" class="hover:text-foreground transition-colors">UBS</a></li>
+            <li><a href="mapa.html" class="hover:text-foreground transition-colors">UPA</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
+        <p>&copy; 2025 Sinop Saúde. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

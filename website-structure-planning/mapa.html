@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa - Sinop Saúde</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2d7a5e',
+            'primary-foreground': '#f9fafb',
+            secondary: '#e9edf1',
+            'secondary-foreground': '#1f2937',
+            muted: '#e9edf1',
+            'muted-foreground': '#6b7280',
+            accent: '#4ade80',
+            'accent-foreground': '#1f2937',
+            border: '#e5e7eb',
+            background: '#ffffff',
+            foreground: '#1f2937',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-foreground">
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-map-marked-alt text-2xl text-primary"></i>
+          <span class="text-xl font-bold">Sinop Saúde</span>
+        </div>
+        
+        <div class="hidden md:flex md:items-center md:gap-6">
+          <a href="index.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Início</a>
+          <a href="sobre.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Sobre</a>
+          <a href="mapa.html" class="text-sm font-medium text-primary">Mapa</a>
+          <a href="contato.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Contato</a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden p-2">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden md:hidden pb-4">
+        <div class="flex flex-col gap-3">
+          <a href="index.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Início</a>
+          <a href="sobre.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Sobre</a>
+          <a href="mapa.html" class="text-sm font-medium text-primary">Mapa</a>
+          <a href="contato.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Contato</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Map Content -->
+  <main class="h-[calc(100vh-4rem)]">
+    <div class="flex h-full flex-col lg:flex-row">
+      <!-- Sidebar -->
+      <div class="w-full border-b border-border bg-background lg:w-96 lg:border-b-0 lg:border-r overflow-y-auto">
+        <div class="flex flex-col h-full">
+          <div class="border-b border-border p-6">
+            <h1 class="text-2xl font-bold">Mapa da Saúde</h1>
+            <p class="mt-2 text-sm text-muted-foreground">
+              Unidades de Saúde de Sinop - MT
+            </p>
+          </div>
+
+          <div class="space-y-3 p-4">
+            <div class="relative">
+              <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Buscar unidade de saúde..."
+                class="w-full rounded-lg border border-border bg-background px-9 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+
+            <select id="filter-select" class="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+              <option value="all">Todas as unidades</option>
+              <option value="UPA">UPA - Pronto Atendimento</option>
+              <option value="UBS">UBS - Unidades Básicas</option>
+            </select>
+
+            <div class="text-xs text-muted-foreground">
+              <span id="result-count">10</span> unidades encontradas
+            </div>
+          </div>
+
+          <div id="locations-list" class="flex-1 overflow-y-auto p-4">
+            <!-- Locations will be inserted here by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Area -->
+      <div class="relative flex-1 bg-muted/30">
+        <div class="flex h-full items-center justify-center p-4">
+          <div class="max-w-2xl rounded-lg border border-border bg-background p-8">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
+              <i class="fas fa-map-marker-alt text-xl text-primary-foreground"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Mapa Interativo de Saúde</h2>
+            <div id="map-description" class="text-muted-foreground mb-6">
+              Visualize todas as Unidades Básicas de Saúde (UBS) e Unidades de Pronto Atendimento (UPA) de Sinop - MT. Clique em uma unidade na barra lateral para ver mais detalhes.
+            </div>
+            <div id="selected-info" class="mb-6"></div>
+            <div class="flex flex-col gap-4">
+              <div class="rounded-lg border border-dashed border-border bg-muted/50 p-12 text-center">
+                <div id="map-icon" class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted mx-auto">
+                  <i class="fas fa-location-arrow text-2xl text-muted-foreground"></i>
+                </div>
+                <p id="map-text" class="text-sm text-muted-foreground">
+                  Selecione uma unidade de saúde na barra lateral
+                </p>
+              </div>
+              <div class="flex gap-2">
+                <button id="directions-btn" class="flex-1 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                  <i class="fas fa-directions mr-2"></i>
+                  Como Chegar
+                </button>
+                <button id="call-btn" class="flex-1 rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium hover:bg-accent/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                  Ligar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map Placeholder Icon -->
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-10">
+          <i class="fas fa-map-marked-alt" style="font-size: 256px;"></i>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+
+    // Location data
+    const locations = [
+      {
+        id: 1,
+        nome: 'UPA Dra. Anete Maria Mota Maria',
+        categoria: 'UPA',
+        endereco: 'Av. André Antônio Maggi',
+        telefone: '(66) 3520-3400',
+        horario: '24 horas',
+        lat: -11.8642,
+        lng: -55.5048,
+      },
+      {
+        id: 2,
+        nome: 'UBS Jardim das Oliveiras',
+        categoria: 'UBS',
+        endereco: 'Jardim das Oliveiras',
+        telefone: '(66) 3520-XXXX',
+        horario: 'Segunda a Sexta: 7h às 17h',
+        lat: -11.8550,
+        lng: -55.5150,
+      },
+      {
+        id: 3,
+        nome: 'UBS Jardim Paulista',
+        categoria: 'UBS',
+        endereco: 'Jardim Paulista',
+        telefone: '(66) 3520-XXXX',
+        horario: 'Segunda a Sexta: 7h às 17h',
+        lat: -11.8700,
+        lng: -55.5200,
+      },
+      {
+        id: 4,
+        nome: 'UBS Residencial Morada do Sol',
+        categoria: 'UBS',
+        endereco: 'Residencial Morada do Sol',
+        telefone: '(66) 3520-XXXX',
+        horario: 'Segunda a Sexta: 7h às 17h',
+        lat: -11.8500,
+        lng: -55.4950,
+      },
+      {
+        id: 5,
+        nome: 'UBS Centro',
+        categoria: 'UBS',
+        endereco: 'Região Central',
+        telefone: '(66) 3520-XXXX',
+        horario: 'Segunda a Sexta: 7h às 17h',
+        lat: -11.8650,
+        lng: -55.5050,
+      },
+      {
+        id: 6,
+        nome: 'UBS Setor Industrial',
+        categoria: 'UBS',
+        endereco: 'Setor Industrial',
+        telefone: '(66) 3520-XXXX',
+        horario: 'Segunda a Sexta: 7h às 17h',
+        lat: -11.8800,
+        lng: -55.5100,
+      },
+      {
+        id: 7,
+        nome: 'UBS Jardim Itália',
+        categoria: 'UBS',
+        endereco: 'Jardim Itália',
+        telefone: '(66) 3520-XXXX',
+        horario: 'Segunda a Sexta: 7h às 17h',
+        lat: -11.8450,
+        lng: -55.5250,
+      },
+      {
+        id: 8,
+        nome: 'UBS Residencial Florença',
+        categoria: 'UBS',
+        endereco: 'Residencial Florença',
+        telefone: '(66) 3520-XXXX',
+        horario: 'Segunda a Sexta: 7h às 17h',
+        lat: -11.8580,
+        lng: -55.4900,
+      },
+      {
+        id: 9,
+        nome: 'UBS Jardim das Palmeiras',
+        categoria: 'UBS',
+        endereco: 'Jardim das Palmeiras',
+        telefone: '(66) 3520-XXXX',
+        horario: 'Segunda a Sexta: 7h às 17h',
+        lat: -11.8750,
+        lng: -55.5300,
+      },
+      {
+        id: 10,
+        nome: 'UBS Residencial Júlio Domingos de Campos',
+        categoria: 'UBS',
+        endereco: 'Residencial Júlio Domingos de Campos',
+        telefone: '(66) 3520-XXXX',
+        horario: 'Segunda a Sexta: 7h às 17h',
+        lat: -11.8400,
+        lng: -55.5100,
+      },
+    ];
+
+    let selectedLocation = null;
+    let searchTerm = '';
+    let filterCategory = 'all';
+
+    function getFilteredLocations() {
+      return locations.filter(loc => {
+        const matchesSearch = loc.nome.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = filterCategory === 'all' || loc.categoria === filterCategory;
+        return matchesSearch && matchesCategory;
+      });
+    }
+
+    function getCategoryBadgeClass(categoria) {
+      return categoria === 'UPA' 
+        ? 'bg-red-100 text-red-800' 
+        : 'bg-blue-100 text-blue-800';
+    }
+
+    function getCategoryIcon(categoria) {
+      return categoria === 'UPA' 
+        ? '<i class="fas fa-ambulance"></i>' 
+        : '<i class="fas fa-hospital"></i>';
+    }
+
+    function renderLocations() {
+      const filtered = getFilteredLocations();
+      const container = document.getElementById('locations-list');
+      document.getElementById('result-count').textContent = filtered.length;
+      
+      container.innerHTML = filtered.map(location => `
+        <div 
+          class="mb-3 cursor-pointer rounded-lg border border-border bg-background p-4 transition-colors hover:border-primary ${selectedLocation === location.id ? 'border-primary bg-accent/10' : ''}"
+          onclick="selectLocation(${location.id})"
+        >
+          <div class="mb-2 inline-flex items-center gap-1 rounded-md ${getCategoryBadgeClass(location.categoria)} px-2 py-1 text-xs font-medium">
+            ${getCategoryIcon(location.categoria)}
+            <span>${location.categoria}</span>
+          </div>
+          <h3 class="text-base font-semibold mb-2 leading-relaxed">${location.nome}</h3>
+          <div class="space-y-1 text-xs text-muted-foreground">
+            <div class="flex items-start gap-1">
+              <i class="fas fa-map-marker-alt mt-0.5"></i>
+              <span>${location.endereco}</span>
+            </div>
+            <div>Horário: ${location.horario}</div>
+            ${location.telefone ? `<div>Tel: ${location.telefone}</div>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectLocation(id) {
+      selectedLocation = id;
+      const location = locations.find(l => l.id === id);
+      
+      // Update map info
+      document.getElementById('map-description').innerHTML = `
+        <strong>${location.nome}</strong><br>
+        ${location.endereco}<br>
+        ${location.horario}
+      `;
+      
+      document.getElementById('map-text').innerHTML = `
+        <p class="font-medium mb-2">${location.nome}</p>
+        <p class="text-xs">Coordenadas: ${location.lat}, ${location.lng}</p>
+      `;
+      
+      document.getElementById('map-icon').innerHTML = 
+        location.categoria === 'UPA' 
+          ? '<i class="fas fa-ambulance text-2xl text-red-600"></i>'
+          : '<i class="fas fa-hospital text-2xl text-primary"></i>';
+      
+      // Enable buttons
+      document.getElementById('directions-btn').disabled = false;
+      document.getElementById('call-btn').disabled = false;
+      
+      renderLocations();
+    }
+
+    // Event listeners
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      searchTerm = e.target.value;
+      renderLocations();
+    });
+
+    document.getElementById('filter-select').addEventListener('change', (e) => {
+      filterCategory = e.target.value;
+      renderLocations();
+    });
+
+    document.getElementById('directions-btn').addEventListener('click', () => {
+      if (selectedLocation) {
+        const location = locations.find(l => l.id === selectedLocation);
+        window.open(`https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`, '_blank');
+      }
+    });
+
+    document.getElementById('call-btn').addEventListener('click', () => {
+      if (selectedLocation) {
+        const location = locations.find(l => l.id === selectedLocation);
+        if (location.telefone) {
+          window.location.href = `tel:${location.telefone.replace(/\D/g, '')}`;
+        }
+      }
+    });
+
+    // Initial render
+    renderLocations();
+  </script>
+</body>
+</html>
