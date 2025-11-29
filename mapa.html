@@ -60,10 +60,17 @@
       </div>
     </div>
   </nav>
+<script>
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
 
+  btn.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+  });
+</script>
   <!-- Map Content -->
   <main class="h-[calc(100vh-4rem)]">
-    <div class="flex h-full flex-col lg:flex-row">
+    <div class="flex h-auto md:h-full flex-col lg:flex-row">
       <!-- Sidebar -->
       <div class="w-full border-b border-border bg-background lg:w-96 lg:border-b-0 lg:border-r overflow-y-auto">
         <div class="flex flex-col h-full">
@@ -89,10 +96,16 @@
               <option value="all">Todas as unidades</option>
               <option value="UPA">UPA - Pronto Atendimento</option>
               <option value="UBS">UBS - Unidades Básicas</option>
+              <option value="Policial">Policial - Unidades Policiais</option>
+              <option value="CIAMS">CIAMS - Centro Integrado de Atenção Médico-Sanitária</option>
+              <option value="CAPS">CAPS - Centro de Atenção Psicossocial</option>
+              <option value="CEM">CEM - Centro de Especialidades Médicas</option>
+              <option value="CEO">CEO - Centro de Especialidades Odontológicas</option>
+              <option value="CER">CER - Centro Especializado em Reabilitação</option>
             </select>
 
             <div class="text-xs text-muted-foreground">
-              <span id="result-count">10</span> unidades encontradas
+              <span id="location-count"></span> unidades encontradas
             </div>
           </div>
 
@@ -104,7 +117,7 @@
 
       <!-- Map Area -->
       <div class="relative flex-1 bg-muted/30">
-        <div class="flex h-full items-center justify-center p-4">
+        <div class="flex h-auto md:h-full items-center justify-center p-4">
           <div class="max-w-2xl rounded-lg border border-border bg-background p-8">
             <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
               <i class="fas fa-map-marker-alt text-xl text-primary-foreground"></i>
@@ -143,226 +156,6 @@
       </div>
     </div>
   </main>
-
-  <script>
-    // Mobile menu toggle
-    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
-    });
-
-    // Location data
-    const locations = [
-      {
-        id: 1,
-        nome: 'UPA Dra. Anete Maria Mota Maria',
-        categoria: 'UPA',
-        endereco: 'Av. André Antônio Maggi',
-        telefone: '(66) 3520-3400',
-        horario: '24 horas',
-        lat: -11.8642,
-        lng: -55.5048,
-      },
-      {
-        id: 2,
-        nome: 'UBS Jardim das Oliveiras',
-        categoria: 'UBS',
-        endereco: 'Jardim das Oliveiras',
-        telefone: '(66) 3520-XXXX',
-        horario: 'Segunda a Sexta: 7h às 17h',
-        lat: -11.8550,
-        lng: -55.5150,
-      },
-      {
-        id: 3,
-        nome: 'UBS Jardim Paulista',
-        categoria: 'UBS',
-        endereco: 'Jardim Paulista',
-        telefone: '(66) 3520-XXXX',
-        horario: 'Segunda a Sexta: 7h às 17h',
-        lat: -11.8700,
-        lng: -55.5200,
-      },
-      {
-        id: 4,
-        nome: 'UBS Residencial Morada do Sol',
-        categoria: 'UBS',
-        endereco: 'Residencial Morada do Sol',
-        telefone: '(66) 3520-XXXX',
-        horario: 'Segunda a Sexta: 7h às 17h',
-        lat: -11.8500,
-        lng: -55.4950,
-      },
-      {
-        id: 5,
-        nome: 'UBS Centro',
-        categoria: 'UBS',
-        endereco: 'Região Central',
-        telefone: '(66) 3520-XXXX',
-        horario: 'Segunda a Sexta: 7h às 17h',
-        lat: -11.8650,
-        lng: -55.5050,
-      },
-      {
-        id: 6,
-        nome: 'UBS Setor Industrial',
-        categoria: 'UBS',
-        endereco: 'Setor Industrial',
-        telefone: '(66) 3520-XXXX',
-        horario: 'Segunda a Sexta: 7h às 17h',
-        lat: -11.8800,
-        lng: -55.5100,
-      },
-      {
-        id: 7,
-        nome: 'UBS Jardim Itália',
-        categoria: 'UBS',
-        endereco: 'Jardim Itália',
-        telefone: '(66) 3520-XXXX',
-        horario: 'Segunda a Sexta: 7h às 17h',
-        lat: -11.8450,
-        lng: -55.5250,
-      },
-      {
-        id: 8,
-        nome: 'UBS Residencial Florença',
-        categoria: 'UBS',
-        endereco: 'Residencial Florença',
-        telefone: '(66) 3520-XXXX',
-        horario: 'Segunda a Sexta: 7h às 17h',
-        lat: -11.8580,
-        lng: -55.4900,
-      },
-      {
-        id: 9,
-        nome: 'UBS Jardim das Palmeiras',
-        categoria: 'UBS',
-        endereco: 'Jardim das Palmeiras',
-        telefone: '(66) 3520-XXXX',
-        horario: 'Segunda a Sexta: 7h às 17h',
-        lat: -11.8750,
-        lng: -55.5300,
-      },
-      {
-        id: 10,
-        nome: 'UBS Residencial Júlio Domingos de Campos',
-        categoria: 'UBS',
-        endereco: 'Residencial Júlio Domingos de Campos',
-        telefone: '(66) 3520-XXXX',
-        horario: 'Segunda a Sexta: 7h às 17h',
-        lat: -11.8400,
-        lng: -55.5100,
-      },
-    ];
-
-    let selectedLocation = null;
-    let searchTerm = '';
-    let filterCategory = 'all';
-
-    function getFilteredLocations() {
-      return locations.filter(loc => {
-        const matchesSearch = loc.nome.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = filterCategory === 'all' || loc.categoria === filterCategory;
-        return matchesSearch && matchesCategory;
-      });
-    }
-
-    function getCategoryBadgeClass(categoria) {
-      return categoria === 'UPA' 
-        ? 'bg-red-100 text-red-800' 
-        : 'bg-blue-100 text-blue-800';
-    }
-
-    function getCategoryIcon(categoria) {
-      return categoria === 'UPA' 
-        ? '<i class="fas fa-ambulance"></i>' 
-        : '<i class="fas fa-hospital"></i>';
-    }
-
-    function renderLocations() {
-      const filtered = getFilteredLocations();
-      const container = document.getElementById('locations-list');
-      document.getElementById('result-count').textContent = filtered.length;
-      
-      container.innerHTML = filtered.map(location => `
-        <div 
-          class="mb-3 cursor-pointer rounded-lg border border-border bg-background p-4 transition-colors hover:border-primary ${selectedLocation === location.id ? 'border-primary bg-accent/10' : ''}"
-          onclick="selectLocation(${location.id})"
-        >
-          <div class="mb-2 inline-flex items-center gap-1 rounded-md ${getCategoryBadgeClass(location.categoria)} px-2 py-1 text-xs font-medium">
-            ${getCategoryIcon(location.categoria)}
-            <span>${location.categoria}</span>
-          </div>
-          <h3 class="text-base font-semibold mb-2 leading-relaxed">${location.nome}</h3>
-          <div class="space-y-1 text-xs text-muted-foreground">
-            <div class="flex items-start gap-1">
-              <i class="fas fa-map-marker-alt mt-0.5"></i>
-              <span>${location.endereco}</span>
-            </div>
-            <div>Horário: ${location.horario}</div>
-            ${location.telefone ? `<div>Tel: ${location.telefone}</div>` : ''}
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function selectLocation(id) {
-      selectedLocation = id;
-      const location = locations.find(l => l.id === id);
-      
-      // Update map info
-      document.getElementById('map-description').innerHTML = `
-        <strong>${location.nome}</strong><br>
-        ${location.endereco}<br>
-        ${location.horario}
-      `;
-      
-      document.getElementById('map-text').innerHTML = `
-        <p class="font-medium mb-2">${location.nome}</p>
-        <p class="text-xs">Coordenadas: ${location.lat}, ${location.lng}</p>
-      `;
-      
-      document.getElementById('map-icon').innerHTML = 
-        location.categoria === 'UPA' 
-          ? '<i class="fas fa-ambulance text-2xl text-red-600"></i>'
-          : '<i class="fas fa-hospital text-2xl text-primary"></i>';
-      
-      // Enable buttons
-      document.getElementById('directions-btn').disabled = false;
-      document.getElementById('call-btn').disabled = false;
-      
-      renderLocations();
-    }
-
-    // Event listeners
-    document.getElementById('search-input').addEventListener('input', (e) => {
-      searchTerm = e.target.value;
-      renderLocations();
-    });
-
-    document.getElementById('filter-select').addEventListener('change', (e) => {
-      filterCategory = e.target.value;
-      renderLocations();
-    });
-
-    document.getElementById('directions-btn').addEventListener('click', () => {
-      if (selectedLocation) {
-        const location = locations.find(l => l.id === selectedLocation);
-        window.open(`https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`, '_blank');
-      }
-    });
-
-    document.getElementById('call-btn').addEventListener('click', () => {
-      if (selectedLocation) {
-        const location = locations.find(l => l.id === selectedLocation);
-        if (location.telefone) {
-          window.location.href = `tel:${location.telefone.replace(/\D/g, '')}`;
-        }
-      }
-    });
-
-    // Initial render
-    renderLocations();
-  </script>
+  <script src="mapa.js"></script>
 </body>
 </html>

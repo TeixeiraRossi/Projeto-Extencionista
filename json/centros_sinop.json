@@ -1,0 +1,80 @@
+[
+  {
+    "id": 4,
+    "categoria": "CEM",
+    "nome": "CEM - Centro de Especialidades Médicas",
+    "endereco": "Avenida das Sibipirunas, 4248",
+    "bairro": "Setor Residencial Norte",
+    "numero": "4248",
+    "cep": "78550-340",
+    "tipos_atendimento": [
+      "cardiologia",
+      "neurologia",
+      "oftalmologia",
+      "ginecologia",
+      "cirurgia vascular",
+      "ortopedia",
+      "cirurgia pediátrica",
+      "cirurgia geral",
+      "pequenas cirurgias",
+      "gastroenterologia",
+      "proctologia",
+      "urologia",
+      "pré-natal de alto risco",
+      "infectologia",
+      "psiquiatria",
+      "psicologia",
+      "nutrição",
+      "mastologia",
+      "endocrinologia",
+      "reumatologia",
+      "cirurgia ginecológica"
+    ],
+    "lat": -11.849542072297325,
+    "lng": -55.50000786041623,
+    "telefone": "(66) 3520-7507",
+    "horario": "Segunda a sexta, 06:00 às 18:00 (atendimento por agendamento)"
+  },
+  {
+    "id": 5,
+    "categoria": "CEO",
+    "nome": "CEO - Centro de Especialidades Odontológicas",
+    "endereco": "Rua das Castanheiras, esquina com Rua das Azaléias, 1181",
+    "bairro": "Setor Comercial / Centro",
+    "numero": "1181",
+    "cep": "78550-290",
+    "tipos_atendimento": [
+      "endodontia (canal)",
+      "periodontia",
+      "próteses (total e parcial removível)",
+      "cirurgia oral menor",
+      "procedimentos odontológicos especializados"
+    ],
+    "lat": -11.853341888368595,
+    "lng": -55.5079925334105,
+    "telefone": "(66) 3520-7242 / (66) 99226-9239",
+    "horario": "Segunda a sexta, 07:00 às 13:00"
+  },
+  {
+    "id": 6,
+    "categoria": "CER",
+    "nome": "CER - Centro Especializado em Reabilitação (CER II)",
+    "endereco": "Rua das Andirobas, 122",
+    "bairro": "Setor Comercial / Jardim Maringá",
+    "numero": "122",
+    "cep": "78556-268",
+    "tipos_atendimento": [
+      "fisioterapia",
+      "fonoaudiologia",
+      "psicologia",
+      "nutrição",
+      "terapia ocupacional",
+      "assistência social",
+      "reabilitação física e auditiva"
+    ],
+    "lat": -11.857169760070793,
+    "lng": -55.51307534741984,
+    "telefone": "(66) 3520-7241 / (66) 99985-0581",
+    "horario": "Segunda a sexta, 06:30 às 18:30"
+  }
+]

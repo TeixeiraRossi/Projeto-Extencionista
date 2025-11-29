@@ -1,126 +1,58 @@
+console.log("MAPA.JS CARREGOU!");
 // Health locations data
-const locations = [
-  {
-    id: 1,
-    nome: "UPA Dra. Anete Maria Mota Maria",
-    categoria: "UPA",
-    endereco: "Av. André Antônio Maggi",
-    telefone: "(66) 3520-3400",
-    horario: "24 horas",
-    lat: -11.8642,
-    lng: -55.5048,
-  },
-  {
-    id: 2,
-    nome: "UBS Jardim das Oliveiras",
-    categoria: "UBS",
-    endereco: "Jardim das Oliveiras",
-    telefone: "(66) 3520-XXXX",
-    horario: "Segunda a Sexta: 7h às 17h",
-    lat: -11.855,
-    lng: -55.515,
-  },
-  {
-    id: 3,
-    nome: "UBS Jardim Paulista",
-    categoria: "UBS",
-    endereco: "Jardim Paulista",
-    telefone: "(66) 3520-XXXX",
-    horario: "Segunda a Sexta: 7h às 17h",
-    lat: -11.87,
-    lng: -55.52,
-  },
-  {
-    id: 4,
-    nome: "UBS Residencial Morada do Sol",
-    categoria: "UBS",
-    endereco: "Residencial Morada do Sol",
-    telefone: "(66) 3520-XXXX",
-    horario: "Segunda a Sexta: 7h às 17h",
-    lat: -11.85,
-    lng: -55.495,
-  },
-  {
-    id: 5,
-    nome: "UBS Centro",
-    categoria: "UBS",
-    endereco: "Região Central",
-    telefone: "(66) 3520-XXXX",
-    horario: "Segunda a Sexta: 7h às 17h",
-    lat: -11.865,
-    lng: -55.505,
-  },
-  {
-    id: 6,
-    nome: "UBS Setor Industrial",
-    categoria: "UBS",
-    endereco: "Setor Industrial",
-    telefone: "(66) 3520-XXXX",
-    horario: "Segunda a Sexta: 7h às 17h",
-    lat: -11.88,
-    lng: -55.51,
-  },
-  {
-    id: 7,
-    nome: "UBS Jardim Itália",
-    categoria: "UBS",
-    endereco: "Jardim Itália",
-    telefone: "(66) 3520-XXXX",
-    horario: "Segunda a Sexta: 7h às 17h",
-    lat: -11.845,
-    lng: -55.525,
-  },
-  {
-    id: 8,
-    nome: "UBS Residencial Florença",
-    categoria: "UBS",
-    endereco: "Residencial Florença",
-    telefone: "(66) 3520-XXXX",
-    horario: "Segunda a Sexta: 7h às 17h",
-    lat: -11.858,
-    lng: -55.49,
-  },
-  {
-    id: 9,
-    nome: "UBS Jardim das Palmeiras",
-    categoria: "UBS",
-    endereco: "Jardim das Palmeiras",
-    telefone: "(66) 3520-XXXX",
-    horario: "Segunda a Sexta: 7h às 17h",
-    lat: -11.875,
-    lng: -55.53,
-  },
-  {
-    id: 10,
-    nome: "UBS Residencial Júlio Domingos de Campos",
-    categoria: "UBS",
-    endereco: "Residencial Júlio Domingos de Campos",
-    telefone: "(66) 3520-XXXX",
-    horario: "Segunda a Sexta: 7h às 17h",
-    lat: -11.84,
-    lng: -55.51,
-  },
-]
+async function carregarDados() {
+  const arquivos = [
+    "json/unidades_de_farmacia_publica.json",
+    "json/caps.json",
+    "json/upa-sinop.json",
+    "json/policias_sinop.json",
+    "json/centros_sinop.json",
+    "json/ubs_sinop.json"
+  ];
 
+  try {
+    console.log("Carregando arquivos:", arquivos);
+
+    const respostas = await Promise.all(
+      arquivos.map(async (arquivo) => {
+
+        try {
+          const response = await fetch(arquivo);
+          console.log("Status de", arquivo, response.status);
+
+          if (!response.ok) {
+            throw new Error(`Erro ao carregar ${arquivo} (status: ${response.status})`);
+          }
+
+          const data = await response.json();
+          console.log("Carregado com sucesso:", arquivo, data);
+
+          return data;
+
+        } catch (erroArquivo) {
+          console.error("Erro ao carregar arquivo:", arquivo, erroArquivo);
+          return []; // evita quebra do Promise.all
+        }
+
+      })
+    );
+
+    const locations = respostas.flat();
+    console.log("Dados finais carregados:", locations);
+
+    return locations;
+
+  } catch (erroGeral) {
+    console.error("Erro geral ao carregar JSON:", erroGeral);
+    return [];
+  }
+}
+
+
+let locations = [];
+let filteredLocations = [];
 let selectedLocationId = null
-let filteredLocations = [...locations]
 
-// Initialize map
-document.addEventListener("DOMContentLoaded", () => {
-  renderLocations(filteredLocations)
-
-  // Search functionality
-  const searchInput = document.getElementById("search-input")
-  searchInput.addEventListener("input", (e) => {
-    filterLocations()
-  })
-
-  // Filter functionality
-  const filterSelect = document.getElementById("filter-select")
-  filterSelect.addEventListener("change", (e) => {
-    filterLocations()
-  })
-})
 
 function filterLocations() {
   const searchTerm = document.getElementById("search-input").value.toLowerCase()
@@ -146,6 +78,54 @@ function renderLocations(locs) {
   })
 }
 
+function selectLocation(id) {
+      selectedLocationId = id;
+      const location = locations.find(l => l.id === id);
+      
+      // Update map info
+      document.getElementById('map-description').innerHTML = `
+        <strong>${location.nome}</strong><br>
+        ${location.endereco}<br>
+        ${location.horario}
+      `;
+      
+      document.getElementById('map-text').innerHTML = `
+        <p class="font-medium mb-2">${location.nome}</p>
+        <p class="text-xs">Coordenadas: ${location.lat}, ${location.lng}</p>
+      `;
+      
+      document.getElementById('map-icon').innerHTML = 
+        location.categoria === 'UPA' 
+          ? '<i class="fas fa-ambulance text-2xl text-red-600"></i>'
+          : '<i class="fas fa-hospital text-2xl text-primary"></i>';
+      
+      // Enable buttons
+      document.getElementById('directions-btn').disabled = false;
+      document.getElementById('call-btn').disabled = false;
+      
+      renderLocations(filteredLocations);
+    }
+
+document.getElementById('directions-btn').addEventListener('click', () => {
+      if (selectedLocationId) {
+        const location = locations.find(l => l.id === selectedLocationId);
+        window.open(`https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`, '_blank');
+      }
+    });
+
+document.getElementById('call-btn').addEventListener('click', () => {
+  if (selectedLocationId) {
+    const location = locations.find(l => l.id === selectedLocationId);
+    if (!location || !location.telefone) return;
+
+    // Converter para apenas números
+    const numero = location.telefone.replace(/\D/g, '');
+
+    // Abrir WhatsApp com o mesmo número
+    window.open(`https://wa.me/${numero}`, '_blank');
+  }
+});
+
 function createLocationCard(location) {
   const card = document.createElement("div")
   card.className = `rounded-lg border border-gray-200 bg-white p-4 shadow-sm cursor-pointer transition-colors hover:border-blue-500 ${
@@ -158,7 +138,19 @@ function createLocationCard(location) {
   const icon =
     location.categoria === "UPA"
       ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>'
-      : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>'
+    : location.categoria === "Policial"
+      ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l4 2h4v6c0 5-3 9-8 12-5-3-8-7-8-12V4h4l4-2z"></path>`
+    : location.categoria === "CIAMS"
+      ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v4m0 8v4m4-4h4M4 12h4m4-8a8 8 0 110 16 8 8 0 010-16z" />`
+    : location.categoria === "CAPS"
+      ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6a3 3 0 110 6 3 3 0 010-6zm-6 12a6 6 0 0112 0H6z" />`
+    : location.categoria === "CEM"
+      ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4v5a6 6 0 0012 0V4m-2 14a2 2 0 11-4 0" />`
+    : location.categoria === "CEO"
+      ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2c3 0 5 2 5 5 0 4-2 7-2 10a2 2 0 01-4 0c0-3-2-6-2-10 0-3 2-5 5-5z"/>`
+    : location.categoria === "CER"
+      ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4a2 2 0 110 4 2 2 0 010-4zm-7 8h14m-9 0v6m4-6v6" />`
+    : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>'
 
   card.innerHTML = `
     <div class="mb-2 flex items-center gap-2">
@@ -184,21 +176,6 @@ function createLocationCard(location) {
   `
 
   return card
-}
-
-function selectLocation(id) {
-  selectedLocationId = id
-  const location = locations.find((loc) => loc.id === id)
-
-  // Update selected card styling
-  renderLocations(filteredLocations)
-
-  // Update map area
-  updateMapDisplay(location)
-
-  // Enable buttons
-  document.getElementById("directions-btn").disabled = false
-  document.getElementById("call-btn").disabled = false
 }
 
 function updateMapDisplay(location) {
@@ -228,6 +205,30 @@ function updateMapDisplay(location) {
   `
 }
 
+
 function updateLocationCount(count) {
   document.getElementById("location-count").textContent = `${count} unidades encontradas`
 }
+// Inicialização do mapa após carregar a página
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("Chamando carregarDados()");
+
+  // 1. Carregar todos os arquivos JSON
+  locations = await carregarDados();
+
+  console.log("Dados recebidos:", locations);
+
+  // 2. Criar a lista filtrável com base nos dados
+  filteredLocations = [...locations];
+
+  // 3. Renderizar lista no painel lateral
+  renderLocations(filteredLocations);
+  updateLocationCount(filteredLocations.length);
+  // 4. Ativar busca
+  const searchInput = document.getElementById("search-input");
+  searchInput.addEventListener("input", filterLocations);
+
+  // 5. Ativar filtro por categoria
+  const filterSelect = document.getElementById("filter-select");
+  filterSelect.addEventListener("change", filterLocations);
+});

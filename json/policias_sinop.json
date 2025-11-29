@@ -1,0 +1,38 @@
+[
+  {
+    "categoria": "Policial",
+    "id": 7,
+    "nome": "11º Batalhão de Polícia Militar",
+    "endereco": "Av. das Siriemas, 208, Jardim De Monet, Sinop - MT, Brasil",
+    "cep": "78556-364",
+    "telefone": "+55 66 3531-1124",
+    "horario": "Todos os dias da semana 24 horas por dia"
+  },
+  {
+    "categoria": "Policial",
+    "id": 8,
+    "nome": "Delegacia Regional de Polícia de Sinop (Complexo da Polícia Civil)",
+    "endereco": "Rua Colonizador Ênio Pepino, nº 3061, bairro Setor Industrial Sul, Sinop - MT, Brasil",
+    "cep": "78558-439",
+    "telefone": "+55 66 3531-2002",
+    "horario": "Segunda-feira/Sexta-feira (08:00h-12:00h / 14:00h-18:00h Fuso horário GMT-4 Ciabá)"
+  },
+  {
+    "categoria": "Policial",
+    "id": 9,
+    "nome": "Delegacia Especializada de Defesa da Mulher, Criança, Adolescente e Idoso de Sinop",
+    "endereco": "Rua Colonizador Ênio Pepino, nº 3061, bairro Setor Industrial Sul, Sinop - MT, Brasil",
+    "cep": "78558-439",
+    "telefone": "+55 66 3531-0120",
+    "horario": "Segunda-feira/Sexta-feira (08:00h-12:00h / 14:00h-18:00h Fuso horário GMT-4 Ciabá)"
+  },
+  {
+    "categoria": "Policial",
+    "id": 10,
+    "nome": "Delegacia de Polícia Federal de Sinop",
+    "endereco": "Av. das Figueiras, 1115, St. Comercial, Sinop - MT, Brasil",
+    "cep": "78550-254",
+    "telefone": "+55 66 3511-8200",
+    "horario": "Todos os dias da semana 24 horas por dia"
+  }
+]

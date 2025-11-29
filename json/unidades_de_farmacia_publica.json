@@ -1,0 +1,28 @@
+[
+  {
+    "id": 21,
+    "categoria": "CIAMS",
+    "nome": "CIAMS Jacarandás",
+    "endereco": "Avenida dos Jacarandás, 1237",
+    "bairro": "Jardim Jacarandás",
+    "numero": "1237",
+    "cep": "78557-667",
+    "lat": -11.877026,
+    "lng": -55.502996,
+    "telefone": "(66) 99234-7419",
+    "horario": "Segunda a sexta, 06:30 - 17:30"
+  },
+  {
+    "id": 22,
+    "categoria": "CIAMS",
+    "nome": "CIAMS André Maggi",
+    "endereco": "Avenida André Maggi, 5860",
+    "bairro": "Jardim Violetas",
+    "numero": "5860",
+    "cep": "78555-286",
+    "lat": -11.833128,
+    "lng": -55.515163,
+    "telefone": "(66) 3520-7447",
+    "horario": "Segunda a sexta, 07:00 - 17:30"
+  }
+]

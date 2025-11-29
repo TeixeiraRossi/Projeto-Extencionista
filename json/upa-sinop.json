@@ -1,0 +1,123 @@
+[
+  {
+    "categoria": "CEM",
+    "id": 23,
+    "nome": "CEM - CENTRO DE ESPECIALIDADES MÉDICAS",
+    "name": "CEM - CENTRO DE ESPECIALIDADES MÉDICAS",
+    "endereco": "Rua das Seringueiras, 1024",
+    "address": "Rua das Seringueiras, 1024",
+    "bairro": "JARDIM BOTÂNICO",
+    "neighborhood": "JARDIM BOTÂNICO",
+    "numero": "1024",
+    "number": "1024",
+    "cep": "78556038",
+    "lat": -11.879700,
+    "lng": -55.518600,
+    "coordinates": {
+      "lat": -11.879700,
+      "lng": -55.518600
+    },
+    "telefone": "(66) 3520-7507 / 7508 / 7509 / 7510 / 7511",
+    "contact_number": "(66) 3520-7507 / 7508 / 7509 / 7510 / 7511",
+    "horario": "Segunda a Sexta, das 6h às 18h (Horário Comercial)",
+    "hours": "Seg a Sex 06:00-18:00 (Comercial)",
+    "observacoes": "O Centro de Especialidades Médicas (CEM) de Sinop não fecha durante a maioria dos feriados, mas o horário de atendimento pode variar por isso confirme pelo telefone.",
+    "last_updated": "2025-11-24T19:10:00"
+  },
+  {
+    "categoria": "UBS",
+    "id": 24,
+    "nome": "POLICLÍNICA MENINO JESUS",
+    "name": "POLICLÍNICA MENINO JESUS",
+    "endereco": "Rua Colonizador Enio Pipino, 523",
+    "address": "Rua Colonizador Enio Pipino",
+    "bairro": "SAO CRISTOVAO",
+    "neighborhood": "SAO CRISTOVAO",
+    "numero": "523",
+    "number": "523",
+    "cep": "78557484",
+    "lat": -11.869041,
+    "lng": -55.485188,
+    "coordinates": {
+      "lat": -11.869041,
+      "lng": -55.485188
+    },
+    "telefone": "(66) 3211-1981",
+    "contact_number": "(66) 3211-1981",
+    "horario": "Noturno (Segunda a Sexta, 19h às 06h). Finais de Semana e Feriados: 24 horas.",
+    "hours": "Seg-Sex 19:00-06:00 (noturno). Fim de semana e feriados: 24h",
+    "last_updated": "2025-11-09T09:00:00"
+  },
+  {
+    "categoria": "UBS",
+    "id": 25,
+    "nome": "UBS JOSÉ RAMOS PEREIRA ZEQUINHA (MARIA VINDILINA II)",
+    "name": "UBS JOSÉ RAMOS PEREIRA ZEQUINHA (MARIA VINDILINA II)",
+    "endereco": "Rua Teles Pires esquina com Nicolau Flessak, 252",
+    "address": "Rua Teles Pires esquina com Nicolau Flessak",
+    "bairro": "JD MARIA VINDILINA I",
+    "neighborhood": "JD MARIA VINDILINA I",
+    "numero": "252",
+    "number": "252",
+    "cep": "78555230",
+    "lat": -11.890696,
+    "lng": -55.513575,
+    "coordinates": {
+      "lat": -11.890696,
+      "lng": -55.513575
+    },
+    "telefone": "(66) 99229-4776",
+    "contact_number": "(66) 99229-4776",
+    "horario": "Normal: Segunda a Sexta (07h-11h / 13h-17h). Horário estendido para urgência até 22h, Sábados das 07h30 às 16h30.",
+    "hours": "Seg a Sex 07:00-11:00 / 13:00-17:00 (estendido p/ urgência até 22:00); Sáb 07:30-16:30",
+    "last_updated": "2025-11-09T09:00:00"
+  },
+  {
+    "categoria": "UBS",
+    "id": 26,
+    "nome": "UBS SÃO CRISTÓVÃO",
+    "name": "UBS SÃO CRISTÓVÃO",
+    "endereco": "Estrada Jacinta, 255",
+    "address": "Estrada Jacinta, 255",
+    "bairro": "SÃO CRISTÓVÃO",
+    "neighborhood": "SÃO CRISTÓVÃO",
+    "numero": "255",
+    "number": "255",
+    "cep": "78557287",
+    "lat": -11.878366,
+    "lng": -55.485122,
+    "coordinates": {
+      "lat": -11.878366,
+      "lng": -55.485122
+    },
+    "telefone": "(66) 3520-7557",
+    "contact_number": "(66) 3520-7557",
+    "horario": "Segunda a Sexta (07h-11h / 13h-17h) - Consultar horários estendidos para Atenção Primária",
+    "hours": "Seg a Sex 07:00-11:00 / 13:00-17:00",
+    "last_updated": "2025-11-24T19:10:00"
+  },
+  {
+    "categoria": "UPA",
+    "id": 27,
+    "nome": "UPA SINOP DRA ANETE MARIA MOTA MARIA",
+    "name": "UPA SINOP DRA ANETE MARIA MOTA MARIA",
+    "endereco": "Avenida Andre Antonio Maggi, 7077",
+    "address": "Avenida Andre Antonio Maggi",
+    "bairro": "JARDIM DAS ACACIAS",
+    "neighborhood": "JARDIM DAS ACACIAS",
+    "numero": "7077",
+    "number": "7077",
+    "cep": "78553252",
+    "lat": -11.823323902576167,
+    "lng": -55.51000106683106,
+    "coordinates": {
+      "lat": -11.884149,
+      "lng": -55.513524
+    },
+    "telefone": "(66) 3520-3400",
+    "contact_number": "(66) 3520-3400",
+    "horario": "24 horas",
+    "hours": "24 horas",
+    "last_updated": "2025-11-09T09:00:00"
+  }
+]

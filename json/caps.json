@@ -1,0 +1,30 @@
+[
+  {
+    "categoria": "CAPS",
+    "id": 1,
+    "tipo": "CAPSi",
+    "nome": "CAPSi - Centro de Atenção Psicossocial Infantojuvenil",
+    "endereco": "Avenida das Itaúbas, Setor Comercial, Sinop - MT, Brasil",
+    "telefone": "+55 66 3515-1907",
+    "horario": "Segunda a Sexta (07:00 às 17:00)"
+  },
+  {
+    "categoria": "CAPS",
+    "id": 2,
+    "tipo": "CAPS AD",
+    "nome": "CAPS AD III - Álcool e Drogas",
+    "endereco": "Rua das Nogueiras, Jardim Botânico, Sinop - MT, Brasil",
+    "telefone": "+55 66 3515-1900",
+    "horario": "Todos os dias da semana 24 horas por dia"
+  },
+  {
+    "categoria": "CAPS",
+    "id": 3,
+    "tipo": "CAPS II",
+    "nome": "CAPS II - Saúde Mental",
+    "endereco": "Rua dos Buritis, Centro, Sinop - MT, Brasil",
+    "telefone": "+55 66 3515-1910",
+    "horario": "Segunda a Sexta (07:00 às 17:00)"
+  }
+]
+
